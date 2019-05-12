@@ -47,3 +47,14 @@ endfunction(bk_add_test)
 
 bk_add_test(lexer_example)
 bk_add_test(token_example)
+
+##
+## formatting
+##
+
+add_custom_target(
+  format
+    COMMAND
+    uncrustify -c ${CMAKE_SOURCE_DIR}/uncrustify.cfg --no-backup ${CMAKE_SOURCE_DIR}/**/*.cc ${CMAKE_SOURCE_DIR}/include/**/*.h &&
+    cpplint ${CMAKE_SOURCE_DIR}/src/*.cc ${CMAKE_SOURCE_DIR}/include/bk/*.h
+  )
