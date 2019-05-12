@@ -25,7 +25,6 @@ include_directories(include)
 set(bk_SOURCES
   src/lexer.cc
   src/token.cc
-  src/helper.cc
   src/module.cc)
 
 add_library(bk STATIC ${bk_SOURCES})
