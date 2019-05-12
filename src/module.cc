@@ -4,17 +4,17 @@
 
 namespace bk {
 Module::Module(const std::string& filename, std::vector<bk::Token>& tokens) {
-    mFilename = filename;
-    mTokens = tokens;
+  mFilename = filename;
+  mTokens   = tokens;
 }
 
 std::ostream& operator<<(std::ostream& stream, const Module& module) {
-    stream << module.mFilename << std::endl << "   ";
+  stream << module.mFilename << " "
+         << module.mTokens.size()
+         << std::endl << "   ";
 
-    for (auto& el : module.mTokens)
-        stream << el << " ";
+  for (auto& token : module.mTokens) stream << token << " ";
 
-    return stream;
+  return stream;
 }
-
-} // namespace bk
+} //  namespace bk
