@@ -15,21 +15,29 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wstrict-overflow=5 -Wswitch-default -Wu
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wswitch-enum -Wwrite-strings -Wunreachable-code -Wno-strict-aliasing")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wno-format-nonliteral -Wno-missing-field-initializers")
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pipe -g -O3 -Werror -march=native")
-set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++ -std=gnu++17")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=gnu++17")
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -static-libgcc -static-libstdc++")
 
-set(bk_SOURCES
-  src/helper.cc)
-
-add_library(libbk STATIC ${bk_SOURCES})
+link_libraries(stdc++fs)
 
 include_directories(include)
 
-add_executable(bk src/main.cc ${bk_SOURCES})
-target_link_libraries(bk libbk)
+set(bk_SOURCES
+  src/lexer.cc
+  src/token.cc
+  src/helper.cc
+  src/module.cc)
+
+add_library(bk STATIC ${bk_SOURCES})
+
+add_executable(bkc src/main.cc)
+target_link_libraries(bkc bk)
+file(COPY ${CMAKE_CURRENT_SOURCE_DIR}/sample-book
+  DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 function(bk_add_test name)
   add_executable(${name} test/${name}.cc)
-  target_link_libraries(${name} libbk)
+  target_link_libraries(${name} bk)
   add_test(
     NAME    ${name}_valgrind
     COMMAND valgrind --leak-check=full
@@ -37,4 +45,5 @@ function(bk_add_test name)
   add_test(${name} ${name})
 endfunction(bk_add_test)
 
-bk_add_test(bk_example)
+bk_add_test(lexer_example)
+bk_add_test(token_example)
