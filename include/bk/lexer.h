@@ -36,7 +36,7 @@ public:
     mModules.clear();
   }
 
-  inline std::size_t numModules() {
+  inline std::size_t numModules() const {
     return mModules.size();
   }
 
