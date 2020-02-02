@@ -83,7 +83,7 @@ void Lexer::tokenizeFile(const std::string& filename) {
       tok.type(Token::Type::newline);
       tokens.push_back(tok);
 
-      ss.str(std::string());
+      ss.str({});
       continue;
     }
 
