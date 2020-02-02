@@ -61,7 +61,7 @@ Lexer::~Lexer() {}
 void Lexer::process() {
   namespace fs = std::filesystem;
 
-  for (auto& el : fs::recursive_directory_iterator(mRoot))
+  for (const auto& el : fs::recursive_directory_iterator(mRoot))
     if (el.path().extension() == mAcceptExtension) mFiles.push_back(el.path());
 
   for (const auto& path : mFiles) tokenizeFile(path);
