@@ -92,7 +92,7 @@ void Lexer::tokenizeFile(const std::string& filename) {
       ss << c;
       bk::Token tok(ss.str(), linecount);
       tok.type(Token::Type::punct);
-      tokens.push_back(tok);
+      tokens.push_back(std::move(tok));
 
       ss.str(std::string());
       continue;
