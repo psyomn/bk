@@ -64,7 +64,7 @@ void Lexer::process() {
   for (auto& el : fs::recursive_directory_iterator(mRoot))
     if (el.path().extension() == mAcceptExtension) mFiles.push_back(el.path());
 
-  for (auto& path : mFiles) tokenizeFile(path);
+  for (const auto& path : mFiles) tokenizeFile(path);
 }
 
 void Lexer::tokenizeFile(const std::string& filename) {
