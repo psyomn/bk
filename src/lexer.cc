@@ -79,7 +79,7 @@ void Lexer::tokenizeFile(const std::string& filename) {
 
     if (isNewline(c)) {
       linecount++;
-      bk::Token tok(std::string(""), linecount);
+      bk::Token tok("", linecount);
       tok.type(Token::Type::newline);
       tokens.push_back(tok);
 
