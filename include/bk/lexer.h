@@ -26,6 +26,7 @@
 namespace bk {
 struct Lexer {
 public:
+
   Lexer(const std::string&);
 
   void process(); // TODO maybe this should be moved to a util class
@@ -39,16 +40,16 @@ public:
   }
 
 private:
-  std::size_t              mLineNum;
-  std::string              mRoot;
-  std::vector<std::string> mFiles;
-  std::string              mAcceptExtension;
-  std::vector<bk::Module>  mModules;
 
-  friend std::ostream& operator<<(std::ostream& stream, const Lexer& lex) {
+  std::size_t             mLineNum;
+  std::string             mRoot;
+  std::vector<std::string>mFiles;
+  std::string             mAcceptExtension;
+  std::vector<bk::Module> mModules;
+
+  friend std ::ostream& operator<<(std::ostream& stream, const Lexer& lex) {
     for (auto& module : lex.mModules) stream << module << std::endl;
     return stream;
   }
 };
-
 } // namespace bk
