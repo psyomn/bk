@@ -42,13 +42,16 @@ public:
 
 private:
 
-  std::size_t             mLineNum;
-  std::string             mRoot;
-  std::vector<std::string>mFiles;
-  std::string             mAcceptExtension;
-  std::vector<bk::Module> mModules;
+  std::size_t              mLineNum;
+  std::string              mRoot;
+  std::vector<std::string> mFiles;
+  std::string              mAcceptExtension;
+  std::vector<bk::Module>  mModules;
 
-  friend std ::ostream& operator<<(std::ostream&,
-                                   const Lexer&);
+  friend std::ostream& operator<<(std::ostream& stream, const Lexer& lex) {
+    for (auto& module : lex.mModules) stream << module << std::endl;
+    return stream;
+  }
 };
+
 } // namespace bk

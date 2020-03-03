@@ -130,10 +130,4 @@ void Lexer::tokenizeFile(const std::string& filename) {
   bk::Module mod(filename, tokens);
   mModules.push_back(mod);
 }
-
-std::ostream& operator<<(std::ostream& stream, const Lexer& lex) {
-  for (auto& module : lex.mModules) stream << module << std::endl;
-
-  return stream;
-}
 } // namespace bk
