@@ -26,11 +26,13 @@
 namespace bk {
 static PURE bool isPunct(char c) {
   static const std::string pattern = "{}.,;:\\\"!?-()[]<>";
+
   return pattern.find_first_of(c) != std::string::npos;
 }
 
 static PURE bool isSymbol(char c) {
   static const std::string pattern = "@#$^&*|\\/";
+
   return pattern.find_first_of(c) != std::string::npos;
 }
 
@@ -41,6 +43,7 @@ static PURE bool isNewline(char c) {
 static PURE bool isWhitespace(char c) {
   // ignore chars
   static const std::string pattern = " \t\r";
+
   return pattern.find_first_of(c) != std::string::npos;
 }
 
