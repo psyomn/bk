@@ -13,6 +13,9 @@
    See the License for the specific language governing permissions and
    limitations under the License.
  */
+
+#include "bk/intrinsics.h"
+
 #include "bk/lexer.h"
 #include "bk/token.h"
 
@@ -21,33 +24,24 @@
 #include <fstream>
 
 namespace bk {
-static bool isPunct(char c) {
-  return
-    c == '{' || c == '}' ||
-    c == '.' || c == ',' ||
-    c == ';' || c == ':' ||
-    c == '\'' || c == '"' ||
-    c == '!' || c == '?' ||
-    c == '-' ||
-    c == '(' || c == ')' ||
-    c == '[' || c == ']' ||
-    c == '<' || c == '>';
+static PURE bool isPunct(char c) {
+  static const std::string pattern = "{}.,;:\\\"!?-()[]<>";
+  return pattern.find_first_of(c) != std::string::npos;
 }
 
-static bool isSymbol(char c) {
-  return
-    c == '@' || c == '#' || c == '$' || c == '^' ||
-    c == '&' || c == '*' || c == '|' || c == '\\' ||
-    c == '/';
+static PURE bool isSymbol(char c) {
+  static const std::string pattern = "@#$^&*|\\/";
+  return pattern.find_first_of(c) != std::string::npos;
 }
 
-static bool isNewline(char c) {
+static PURE bool isNewline(char c) {
   return c == '\n';
 }
 
-static bool isWhitespace(char c) {
+static PURE bool isWhitespace(char c) {
   // ignore chars
-  return c == ' ' || c == '\t' || c == '\r';
+  static const std::string pattern = " \t\r";
+  return pattern.find_first_of(c) != std::string::npos;
 }
 
 Lexer::Lexer(const std::string& path) :
@@ -88,7 +82,6 @@ void Lexer::tokenizeFile(const std::string& filename) {
     }
 
     if (isPunct(c)) {
-      // punct = {},.;:'"!?-()[]<>
       ss << c;
       bk::Token tok(ss.str(), linecount);
       tok.type(Token::Type::punct);
@@ -99,7 +92,6 @@ void Lexer::tokenizeFile(const std::string& filename) {
     }
 
     if (isSymbol(c)) {
-      // symb = @#$%^&*|\/
       ss << c;
       bk::Token tok(ss.str(), linecount);
       tok.type(Token::Type::symbol);
@@ -111,7 +103,6 @@ void Lexer::tokenizeFile(const std::string& filename) {
 
     if (isSymbol(file.peek()) || isPunct(file.peek()) ||
         isWhitespace(file.peek()) || isNewline(file.peek())) {
-      // words
       if (ss.str() == std::string("")) continue;
 
       ss << c;
