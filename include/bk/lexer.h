@@ -26,9 +26,7 @@
 namespace bk {
 struct Lexer {
 public:
-
   Lexer(const std::string&);
-  ~Lexer();
 
   void process(); // TODO maybe this should be moved to a util class
   void tokenizeFile(const std::string&);
@@ -41,7 +39,6 @@ public:
   }
 
 private:
-
   std::size_t              mLineNum;
   std::string              mRoot;
   std::vector<std::string> mFiles;

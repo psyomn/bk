@@ -50,8 +50,6 @@ Lexer::Lexer(const std::string& path) :
   mRoot = path;
 }
 
-Lexer::~Lexer() {}
-
 void Lexer::process() {
   namespace fs = std::filesystem;
 
@@ -83,7 +81,7 @@ void Lexer::tokenizeFile(const std::string& filename) {
 
     if (isPunct(c)) {
       ss << c;
-      bk::Token tok(ss.str(), linecount);
+      bk::Token tok(std::move(ss.str()), linecount);
       tok.type(Token::Type::punct);
       tokens.push_back(std::move(tok));
 
